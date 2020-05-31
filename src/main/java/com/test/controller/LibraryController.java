@@ -53,11 +53,11 @@ public class LibraryController {
 			@ApiResponse(code = 500, message = "Generic server error"),
 			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
 	@GetMapping("/")
-	public ResponseEntity<RestResponse<?>> findAll() {
+	public ResponseEntity<RestResponse<List<Library>>> findAll() {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		List<Library> libraries = libraryService.findAll();
-		RestResponse<?> response = new RestResponse<>(libraries, restStatus, RestCustom.builder().build());
+		RestResponse<List<Library>> response = new RestResponse<>(libraries, restStatus, RestCustom.builder().build());
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -72,11 +72,11 @@ public class LibraryController {
 			@ApiResponse(code = 500, message = "Generic server error"),
 			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
 	@GetMapping("/{id}")
-	public ResponseEntity<RestResponse<?>> findById(@PathVariable(name = "id", required = true) Long id) {
+	public ResponseEntity<RestResponse<Library>> findById(@PathVariable(name = "id", required = true) Long id) {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		Library library = libraryService.findById(id);
-		RestResponse<?> response = new RestResponse<>(library, restStatus, RestCustom.builder().build());
+		RestResponse<Library> response = new RestResponse<>(library, restStatus, RestCustom.builder().build());
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -91,12 +91,12 @@ public class LibraryController {
 			@ApiResponse(code = 500, message = "Generic server error"),
 			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
 	@PostMapping("/")
-	public ResponseEntity<RestResponse<?>> addLibrary(@RequestBody(required = true) @Valid Library library) {
+	public ResponseEntity<RestResponse<Library>> addLibrary(@RequestBody(required = true) @Valid Library library) {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.CREATED, Constants.ADD_RECORD);
 
 		library = libraryService.save(library);
-		RestResponse<?> response = new RestResponse<>(library, restStatus, RestCustom.builder().build());
+		RestResponse<Library> response = new RestResponse<>(library, restStatus, RestCustom.builder().build());
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

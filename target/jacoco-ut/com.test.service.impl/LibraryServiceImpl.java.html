@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.test.exception.BusinessException;
 import com.test.model.Library;
@@ -11,40 +12,43 @@ import com.test.repository.LibraryRepository;
 import com.test.service.LibraryService;
 
 @Service
-<span class="nc" id="L14">public class LibraryServiceImpl implements LibraryService {</span>
+<span class="fc" id="L15">public class LibraryServiceImpl implements LibraryService {</span>
 
 	@Autowired
 	private LibraryRepository libraryRepository;
 	
 	@Override
 	public List&lt;Library&gt; findAll() {
-<span class="nc" id="L21">		return libraryRepository.findAll();</span>
+<span class="nc" id="L22">		return libraryRepository.findAll();</span>
 	}
 
 	@Override
 	public Library findById(Long id) {
-<span class="nc" id="L26">		Library library = libraryRepository.findById(id).orElse(null);</span>
-<span class="nc bnc" id="L27" title="All 2 branches missed.">		if (library == null)</span>
-<span class="nc" id="L28">			throw new BusinessException(&quot;Library Id is invalid. Please enter valid id&quot;);</span>
-<span class="nc" id="L29">		return library;</span>
+<span class="fc" id="L27">		Library library = libraryRepository.findById(id).orElse(null);</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">		if (library == null)</span>
+<span class="nc" id="L29">			throw new BusinessException(&quot;Library Id is invalid. Please enter valid id&quot;);</span>
+<span class="fc" id="L30">		return library;</span>
 	}
 
 	@Override
+	@Transactional
 	public Library save(Library book) {
-<span class="nc" id="L34">		return libraryRepository.save(book);</span>
+<span class="nc" id="L36">		return libraryRepository.save(book);</span>
 	}
 
 	@Override
+	@Transactional
 	public Library update(Library book) {
-<span class="nc" id="L39">		findById(book.getId());</span>
-<span class="nc" id="L40">		return libraryRepository.save(book);</span>
+<span class="nc" id="L42">		findById(book.getId());</span>
+<span class="nc" id="L43">		return libraryRepository.save(book);</span>
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
-<span class="nc" id="L45">		findById(id);</span>
-<span class="nc" id="L46">		libraryRepository.deleteById(id);</span>
-<span class="nc" id="L47">	}</span>
+<span class="nc" id="L49">		Library library = findById(id);</span>
+<span class="nc" id="L50">		libraryRepository.delete(library);</span>
+<span class="nc" id="L51">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

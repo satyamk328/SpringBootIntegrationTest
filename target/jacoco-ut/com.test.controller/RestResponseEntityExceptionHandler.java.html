@@ -45,17 +45,17 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @ControllerAdvice
-<span class="nc" id="L48">@Slf4j</span>
-<span class="nc" id="L49">public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {</span>
+<span class="fc" id="L48">@Slf4j</span>
+<span class="fc" id="L49">public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {</span>
 
 	@ExceptionHandler(value = { BusinessException.class })
 	protected ResponseEntity&lt;Object&gt; handleBussinessException(BusinessException ex) {
-<span class="nc" id="L53">		log.error(ex.getMessage());</span>
+<span class="fc" id="L53">		log.error(ex.getMessage());</span>
 		
-<span class="nc" id="L55">		RestResponse&lt;String&gt; response = new RestResponse&lt;&gt;(null,</span>
-<span class="nc" id="L56">				new RestStatus&lt;&gt;(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage()),</span>
-<span class="nc" id="L57">				RestCustom.builder().cause(ex.toString()).build());</span>
-<span class="nc" id="L58">		return new ResponseEntity&lt;&gt;(response, HttpStatus.PRECONDITION_FAILED);</span>
+<span class="fc" id="L55">		RestResponse&lt;String&gt; response = new RestResponse&lt;&gt;(null,</span>
+<span class="fc" id="L56">				new RestStatus&lt;&gt;(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage()),</span>
+<span class="fc" id="L57">				RestCustom.builder().cause(ex.toString()).build());</span>
+<span class="fc" id="L58">		return new ResponseEntity&lt;&gt;(response, HttpStatus.BAD_REQUEST);</span>
 
 	}
 
@@ -171,14 +171,14 @@ import lombok.extern.slf4j.Slf4j;
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	protected ResponseEntity&lt;Object&gt; handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
 			WebRequest request) {
-<span class="nc" id="L174">		log.error(ex.getMessage());</span>
+<span class="fc" id="L174">		log.error(ex.getMessage());</span>
 		
-<span class="nc" id="L176">		RestResponse&lt;String&gt; response = new RestResponse&lt;&gt;(null,</span>
-<span class="nc" id="L177">				new RestStatus&lt;&gt;(HttpStatus.BAD_REQUEST,</span>
-<span class="nc" id="L178">						String.format(&quot;The parameter '%s' of value '%s' could not be converted to type '%s'&quot;,</span>
-<span class="nc" id="L179">								ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName())),</span>
-<span class="nc" id="L180">				RestCustom.builder().cause(ex.toString()).build());</span>
-<span class="nc" id="L181">		return new ResponseEntity&lt;&gt;(response, HttpStatus.BAD_REQUEST);</span>
+<span class="fc" id="L176">		RestResponse&lt;String&gt; response = new RestResponse&lt;&gt;(null,</span>
+<span class="fc" id="L177">				new RestStatus&lt;&gt;(HttpStatus.BAD_REQUEST,</span>
+<span class="fc" id="L178">						String.format(&quot;The parameter '%s' of value '%s' could not be converted to type '%s'&quot;,</span>
+<span class="fc" id="L179">								ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName())),</span>
+<span class="fc" id="L180">				RestCustom.builder().cause(ex.toString()).build());</span>
+<span class="fc" id="L181">		return new ResponseEntity&lt;&gt;(response, HttpStatus.BAD_REQUEST);</span>
 	}
 
 	@Override
@@ -207,20 +207,20 @@ import lombok.extern.slf4j.Slf4j;
 	@Override
 	protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-<span class="nc" id="L210">		log.error(ex.getMessage());</span>
+<span class="fc" id="L210">		log.error(ex.getMessage());</span>
 		
-<span class="nc" id="L212">		List&lt;String&gt; errors = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L213" title="All 2 branches missed.">		for (FieldError error : ex.getBindingResult().getFieldErrors()) {</span>
-<span class="nc" id="L214">			errors.add(error.getField() + &quot;: &quot; + error.getDefaultMessage());</span>
+<span class="fc" id="L212">		List&lt;String&gt; errors = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">		for (FieldError error : ex.getBindingResult().getFieldErrors()) {</span>
+<span class="fc" id="L214">			errors.add(error.getField() + &quot;: &quot; + error.getDefaultMessage());</span>
 		}
-<span class="nc bnc" id="L216" title="All 2 branches missed.">		for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {</span>
+<span class="pc bpc" id="L216" title="1 of 2 branches missed.">		for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {</span>
 <span class="nc" id="L217">			errors.add(error.getObjectName() + &quot;: &quot; + error.getDefaultMessage());</span>
 		}
 
-<span class="nc" id="L220">		RestResponse&lt;String&gt; response = new RestResponse&lt;&gt;(null,</span>
-<span class="nc" id="L221">				new RestStatus&lt;&gt;(HttpStatus.BAD_REQUEST, errors.toString()),</span>
-<span class="nc" id="L222">				RestCustom.builder().cause(ex.toString()).build());</span>
-<span class="nc" id="L223">		return new ResponseEntity&lt;&gt;(response, HttpStatus.BAD_REQUEST);</span>
+<span class="fc" id="L220">		RestResponse&lt;String&gt; response = new RestResponse&lt;&gt;(null,</span>
+<span class="fc" id="L221">				new RestStatus&lt;&gt;(HttpStatus.BAD_REQUEST, errors.toString()),</span>
+<span class="fc" id="L222">				RestCustom.builder().cause(ex.toString()).build());</span>
+<span class="fc" id="L223">		return new ResponseEntity&lt;&gt;(response, HttpStatus.BAD_REQUEST);</span>
 	}
 
 	@Override

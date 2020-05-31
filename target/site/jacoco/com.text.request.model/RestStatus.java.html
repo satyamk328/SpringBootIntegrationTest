@@ -14,10 +14,10 @@ import lombok.Setter;
  *
  * @param &lt;T&gt;
  */
-<span class="nc" id="L17">@Getter</span>
-<span class="nc" id="L18">@Setter</span>
+<span class="fc" id="L17">@Getter</span>
+<span class="fc" id="L18">@Setter</span>
 <span class="nc" id="L19">@AllArgsConstructor</span>
-<span class="nc" id="L20">@NoArgsConstructor</span>
+<span class="fc" id="L20">@NoArgsConstructor</span>
 <span class="nc" id="L21">@Builder</span>
 public class RestStatus &lt;T&gt;{
 
@@ -26,10 +26,10 @@ public class RestStatus &lt;T&gt;{
     private String uniqueErrorId;
     private T messageCode;
     
-<span class="nc" id="L29">    public RestStatus(final HttpStatus status, final String statusMessage) {</span>
-<span class="nc" id="L30">        this.code = Integer.toString(status.value());</span>
-<span class="nc" id="L31">        this.message = statusMessage;</span>
-<span class="nc" id="L32">    }</span>
+<span class="fc" id="L29">    public RestStatus(final HttpStatus status, final String statusMessage) {</span>
+<span class="fc" id="L30">        this.code = Integer.toString(status.value());</span>
+<span class="fc" id="L31">        this.message = statusMessage;</span>
+<span class="fc" id="L32">    }</span>
 
 <span class="nc" id="L34">    public RestStatus(final HttpStatus status, final String statusMessage, final String uniqueErrorId, final T messageCode) {</span>
 <span class="nc" id="L35">        this.code = Integer.toString(status.value());</span>

@@ -8,58 +8,69 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.test.exception.BusinessException;
 import com.test.model.Book;
+import com.test.model.Library;
 import com.test.repository.BookRepository;
 import com.test.service.BookService;
+import com.test.service.LibraryService;
 
 @Service
-<span class="nc" id="L19">public class BookServiceImpl implements BookService {</span>
+<span class="fc" id="L22">public class BookServiceImpl implements BookService {</span>
 
 	@Autowired
 	private BookRepository bookRepo;
+	
+	@Autowired
+	private LibraryService libRepo;
 
 	@Override
 	public Page&lt;Book&gt; findAll(Integer pageNo, Integer pageSize, String sortBy, String searchText) {
 
-<span class="nc" id="L27">		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());</span>
+<span class="nc" id="L33">		Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());</span>
 
-<span class="nc bnc" id="L29" title="All 2 branches missed.">		Page&lt;Book&gt; pages = StringUtils.isEmpty(searchText) ? bookRepo.findAll(pageable)</span>
-<span class="nc" id="L30">				: bookRepo.findByfullTextSearch(searchText.toLowerCase(), pageable);</span>
-<span class="nc" id="L31">		return pages;</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">		Page&lt;Book&gt; pages = StringUtils.isEmpty(searchText) ? bookRepo.findAll(pageable)</span>
+<span class="nc" id="L36">				: bookRepo.findByfullTextSearch(searchText.toLowerCase(), pageable);</span>
+<span class="nc" id="L37">		return pages;</span>
 	}
 	
 	@Override
 	public List&lt;Book&gt; findAll() {
-<span class="nc" id="L36">		return bookRepo.findAll();</span>
+<span class="fc" id="L42">		return bookRepo.findAll();</span>
 	}
 
 	@Override
 	public Book findById(Long id) {
-<span class="nc" id="L41">		Book book = bookRepo.findById(id).orElse(null);</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">		if (book == null)</span>
-<span class="nc" id="L43">			throw new BusinessException(&quot;Book Id is invalid. Please enter valid id&quot;);</span>
-<span class="nc" id="L44">		return book;</span>
+<span class="fc" id="L47">		Book book = bookRepo.findById(id).orElse(null);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">		if (book == null)</span>
+<span class="fc" id="L49">			throw new BusinessException(&quot;Book Id is invalid. Please enter valid id&quot;);</span>
+<span class="fc" id="L50">		return book;</span>
 	}
 
 	@Override
+	@Transactional
 	public Book save(Book book) {
-<span class="nc" id="L49">		return bookRepo.save(book);</span>
+<span class="fc" id="L56">		return bookRepo.save(book);</span>
 	}
 
 	@Override
+	@Transactional
 	public Book update(Book book) {
-<span class="nc" id="L54">		findById(book.getId());</span>
-<span class="nc" id="L55">		return bookRepo.save(book);</span>
+<span class="fc" id="L62">		findById(book.getId());</span>
+<span class="fc" id="L63">		Library library = libRepo.findById(book.getLibrary().getId());</span>
+<span class="fc" id="L64">		book.setLibrary(library);</span>
+<span class="fc" id="L65">		return bookRepo.save(book);</span>
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
-<span class="nc" id="L60">		findById(id);</span>
-<span class="nc" id="L61">		bookRepo.deleteById(id);</span>
-<span class="nc" id="L62">	}</span>
+<span class="fc" id="L71">		findById(id);</span>
+<span class="fc" id="L72">		bookRepo.deleteById(id);</span>
+<span class="fc" id="L73">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

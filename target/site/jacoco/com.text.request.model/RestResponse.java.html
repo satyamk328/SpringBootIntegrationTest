@@ -14,18 +14,18 @@ import lombok.Setter;
  *
  * @param &lt;T&gt;
  */
-<span class="nc" id="L17">@Getter</span>
-<span class="nc" id="L18">@Setter</span>
+<span class="fc" id="L17">@Getter</span>
+<span class="fc" id="L18">@Setter</span>
 public class RestResponse&lt;T&gt; {
 
 	private T data;
 	private RestStatus&lt;?&gt; status;
 	private RestCustom custom;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = &quot;yyyy-MM-dd'T'HH:mm:ss.SSS&quot;)
-<span class="nc" id="L25">	private LocalDateTime timestamp = LocalDateTime.now();</span>
+<span class="pc" id="L25">	private LocalDateTime timestamp = LocalDateTime.now();</span>
 
-<span class="nc" id="L27">	public RestResponse() {</span>
-<span class="nc" id="L28">	}</span>
+<span class="fc" id="L27">	public RestResponse() {</span>
+<span class="fc" id="L28">	}</span>
 
 <span class="nc" id="L30">	public RestResponse(final T data, final RestStatus&lt;?&gt; status) {</span>
 <span class="nc" id="L31">		this.data = data;</span>
@@ -36,10 +36,10 @@ public class RestResponse&lt;T&gt; {
 <span class="nc" id="L36">		this.data = data;</span>
 <span class="nc" id="L37">	}</span>
 
-<span class="nc" id="L39">	public RestResponse(final T data, final RestStatus&lt;?&gt; status, final RestCustom custom) {</span>
-<span class="nc" id="L40">		this.data = data;</span>
-<span class="nc" id="L41">		this.status = status;</span>
-<span class="nc" id="L42">		this.custom = custom;</span>
-<span class="nc" id="L43">	}</span>
+<span class="fc" id="L39">	public RestResponse(final T data, final RestStatus&lt;?&gt; status, final RestCustom custom) {</span>
+<span class="fc" id="L40">		this.data = data;</span>
+<span class="fc" id="L41">		this.status = status;</span>
+<span class="fc" id="L42">		this.custom = custom;</span>
+<span class="fc" id="L43">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
