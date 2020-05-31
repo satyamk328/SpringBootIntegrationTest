@@ -1,0 +1,17 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+test,com.test.exception,BusinessException,23,0,0,0,10,0,5,0,5,0
+test,com.test.config,SwaggerConfig,14,0,0,0,6,0,2,0,2,0
+test,com.text.request.model,RestStatus,78,0,0,0,15,0,13,0,13,0
+test,com.text.request.model,RestCustom.RestCustomBuilder,25,0,0,0,1,0,4,0,4,0
+test,com.text.request.model,RestResponse,70,0,0,0,17,0,12,0,12,0
+test,com.text.request.model,RestCustom,20,0,0,0,5,0,5,0,5,0
+test,com.text.request.model,RestStatus.RestStatusBuilder,61,0,0,0,1,0,7,0,7,0
+test,com.test,Application,8,0,0,0,3,0,2,0,2,0
+test,com.test.model,BaseModel,17,0,0,0,3,0,5,0,5,0
+test,com.test.model,Book,24,0,0,0,3,0,7,0,7,0
+test,com.test.model,Library,29,0,0,0,4,0,7,0,7,0
+test,com.test.controller,BookController,157,0,0,0,26,0,7,0,7,0
+test,com.test.controller,RestResponseEntityExceptionHandler,612,0,6,0,108,0,24,0,21,0
+test,com.test.controller,LibraryController,129,0,0,0,22,0,6,0,6,0
+test,com.test.service.impl,BookServiceImpl,81,0,4,0,16,0,9,0,7,0
+test,com.test.service.impl,LibraryServiceImpl,50,0,2,0,12,0,7,0,6,0

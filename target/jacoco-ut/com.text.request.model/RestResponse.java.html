@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RestResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">com.text.request.model</a> &gt; <span class="el_source">RestResponse.java</span></div><h1>RestResponse.java</h1><pre class="source lang-java linenums">package com.text.request.model;
+
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * Wrapper for rest response containing status and message
+ * 
+ * @author satyam.kumar
+ *
+ * @param &lt;T&gt;
+ */
+<span class="nc" id="L17">@Getter</span>
+<span class="nc" id="L18">@Setter</span>
+public class RestResponse&lt;T&gt; {
+
+	private T data;
+	private RestStatus&lt;?&gt; status;
+	private RestCustom custom;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = &quot;yyyy-MM-dd'T'HH:mm:ss.SSS&quot;)
+<span class="nc" id="L25">	private LocalDateTime timestamp = LocalDateTime.now();</span>
+
+<span class="nc" id="L27">	public RestResponse() {</span>
+<span class="nc" id="L28">	}</span>
+
+<span class="nc" id="L30">	public RestResponse(final T data, final RestStatus&lt;?&gt; status) {</span>
+<span class="nc" id="L31">		this.data = data;</span>
+<span class="nc" id="L32">		this.status = status;</span>
+<span class="nc" id="L33">	}</span>
+
+<span class="nc" id="L35">	public RestResponse(final T data) {</span>
+<span class="nc" id="L36">		this.data = data;</span>
+<span class="nc" id="L37">	}</span>
+
+<span class="nc" id="L39">	public RestResponse(final T data, final RestStatus&lt;?&gt; status, final RestCustom custom) {</span>
+<span class="nc" id="L40">		this.data = data;</span>
+<span class="nc" id="L41">		this.status = status;</span>
+<span class="nc" id="L42">		this.custom = custom;</span>
+<span class="nc" id="L43">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
