@@ -4,11 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,11 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.model.Book;
 import com.test.model.Library;
 
-@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BookControllerMockmvcTest {
 
 	@Autowired
@@ -35,22 +30,23 @@ public class BookControllerMockmvcTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	
 	@Test
-	public void findAllBooks_thenReturnSuccess() throws Exception {
-		mockMvc.perform(get("/v0/book/", 1).accept(MediaType.APPLICATION_JSON)).andDo(print())
-				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.data").exists());
+	public void testCreateUpdateAndDeleteApi() throws Exception {
+		when_ValidationException_thenReturns400();
+		when_AddBook_thenReturns200();
+		when_findAllBooks_thenReturns200();
+		when_UpdateBook_thenReturns200();
+		when_DeleteBookByInvalidId_thenReturns400();
+		when_DeleteBook_thenReturns200();
 	}
-	
-	@Test
-	public void findBookById_thenReturnSuccess() throws Exception {
+
+	public void when_findAllBooks_thenReturns200() throws Exception {
 		mockMvc.perform(get("/v0/book/{id}", 1).accept(MediaType.APPLICATION_JSON)).andDo(print())
 				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.data").exists());
 	}
 	
-	
 	@Test
-	public void addBook_thenReturnSuccess() throws Exception {
+	public void when_AddBook_thenReturns200() throws Exception {
 		Book book = new Book();
 		book.setName("Zaphod");
 
@@ -62,8 +58,7 @@ public class BookControllerMockmvcTest {
 				.andExpect(status().isOk());
 	}
 
-	@Test
-	public void When_UpdateBookByInvalidId_thenReturn_BAD_REQUEST() throws Exception {
+	public void when_ValidationException_thenReturns400() throws Exception {
 		Book book = new Book();
 
 		Library library = new Library();
@@ -75,8 +70,7 @@ public class BookControllerMockmvcTest {
 				.andExpect(status().isBadRequest());
 	}
 
-	@Test
-	public void updateBook_thenPassBookId_ReturnSuccess() throws Exception {
+	public void when_UpdateBook_thenReturns200() throws Exception {
 		Book book = new Book();
 		book.setName("Zaphod");
 
@@ -90,13 +84,11 @@ public class BookControllerMockmvcTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.data.name").value("Zaphod"));
 	}
 
-	@Test
 	public void when_DeleteBookByInvalidId_thenReturns400() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.delete("/v0/book/{id}", 123)).andExpect(status().isBadRequest());
 	}
 	
-	@Test
-	public void When_DeleteBook_thenReturnSuccess() throws Exception {
+	public void when_DeleteBook_thenReturns200() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.delete("/v0/book/{id}", 1)).andExpect(status().isOk());
 	}
 }

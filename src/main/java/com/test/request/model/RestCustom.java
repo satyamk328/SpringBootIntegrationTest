@@ -1,4 +1,4 @@
-package com.text.request.model;
+package com.test.request.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

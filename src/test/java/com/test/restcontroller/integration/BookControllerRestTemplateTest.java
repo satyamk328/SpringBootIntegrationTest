@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -23,9 +22,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.test.model.Book;
 import com.test.model.Library;
-import com.text.request.model.RestResponse;
+import com.test.request.model.RestResponse;
 
-@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -97,7 +95,7 @@ public class BookControllerRestTemplateTest {
 				});
 		assertNotNull(response);
 		assertNotNull(response.getBody());
-		assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+		assertEquals(response.getStatusCode(), HttpStatus.OK);
 	}
 
 	@Test
@@ -130,7 +128,7 @@ public class BookControllerRestTemplateTest {
 		assertNotNull(response);
 		assertNotNull(response.getBody());
 		assertNull(response.getBody().getData());
-		assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+		assertEquals(response.getStatusCode(), HttpStatus.OK);
 	}
 	
 	private String createURLWithPort(String uri) {

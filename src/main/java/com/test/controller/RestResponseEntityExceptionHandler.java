@@ -32,9 +32,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.test.exception.BusinessException;
-import com.text.request.model.RestCustom;
-import com.text.request.model.RestResponse;
-import com.text.request.model.RestStatus;
+import com.test.request.model.RestCustom;
+import com.test.request.model.RestResponse;
+import com.test.request.model.RestStatus;
 
 import lombok.extern.slf4j.Slf4j;
 
