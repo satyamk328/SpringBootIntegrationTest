@@ -32,10 +32,6 @@ public class RestResponse<T> {
 		this.status = status;
 	}
 
-	public RestResponse(final T data) {
-		this.data = data;
-	}
-
 	public RestResponse(final T data, final RestStatus<?> status, final RestCustom custom) {
 		this.data = data;
 		this.status = status;

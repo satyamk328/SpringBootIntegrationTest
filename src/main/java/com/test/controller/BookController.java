@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.model.Book;
-import com.test.request.model.RestCustom;
 import com.test.request.model.RestResponse;
 import com.test.request.model.RestStatus;
 import com.test.service.BookService;
@@ -64,7 +63,7 @@ public class BookController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		Page<Book> page = bookService.findAll(pageNo, pageSize, sortBy, searchText);
-		RestResponse<?> response = new RestResponse<>(page, restStatus, RestCustom.builder().build());
+		RestResponse<?> response = new RestResponse<>(page, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
@@ -83,7 +82,7 @@ public class BookController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		List<Book> bookes = bookService.findAll();
-		RestResponse<?> response = new RestResponse<>(bookes, restStatus, RestCustom.builder().build());
+		RestResponse<?> response = new RestResponse<>(bookes, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -102,7 +101,7 @@ public class BookController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		Book book = bookService.findById(id);
-		RestResponse<?> response = new RestResponse<>(book, restStatus, RestCustom.builder().build());
+		RestResponse<?> response = new RestResponse<>(book, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -121,7 +120,7 @@ public class BookController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.CREATED, Constants.ADD_RECORD);
 		book = bookService.save(book);
-		RestResponse<?> response = new RestResponse<>(book, restStatus, RestCustom.builder().build());
+		RestResponse<?> response = new RestResponse<>(book, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -142,7 +141,7 @@ public class BookController {
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.UPDATE_RECORD);
 		book.setId(id);
 		book = bookService.update(book);
-		RestResponse<?> response = new RestResponse<>(book, restStatus, RestCustom.builder().build());
+		RestResponse<?> response = new RestResponse<>(book, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -161,7 +160,7 @@ public class BookController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.DELETE_MSG);
 		bookService.delete(id);
-		RestResponse<?> response = new RestResponse<>(null, restStatus, RestCustom.builder().build());
+		RestResponse<?> response = new RestResponse<>(null, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

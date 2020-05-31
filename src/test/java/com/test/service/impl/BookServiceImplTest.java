@@ -102,6 +102,7 @@ public class BookServiceImplTest {
 		assertNotNull(book);
 		assertEquals(book.getId(), getBookResponse().getId());
 		assertEquals(book.getName(), getBookResponse().getName());
+		assertNotNull(book.getLibrary());
 	}
 
 	@Test
@@ -116,6 +117,8 @@ public class BookServiceImplTest {
 		assertNotNull(book);
 		assertEquals(book.getId(), getBookResponse().getId());
 		assertEquals(book.getName(), getBookResponse().getName());
+		assertNotNull(book.getLibrary());
+		assertEquals(book.getLibrary().getName(), getBookResponse().getLibrary().getName());
 	}
 
 	@Test(expected = BusinessException.class)

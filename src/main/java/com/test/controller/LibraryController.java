@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.model.Library;
-import com.test.request.model.RestCustom;
 import com.test.request.model.RestResponse;
 import com.test.request.model.RestStatus;
 import com.test.service.LibraryService;
@@ -57,7 +56,7 @@ public class LibraryController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		List<Library> libraries = libraryService.findAll();
-		RestResponse<List<Library>> response = new RestResponse<>(libraries, restStatus, RestCustom.builder().build());
+		RestResponse<List<Library>> response = new RestResponse<>(libraries, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -76,7 +75,7 @@ public class LibraryController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		Library library = libraryService.findById(id);
-		RestResponse<Library> response = new RestResponse<>(library, restStatus, RestCustom.builder().build());
+		RestResponse<Library> response = new RestResponse<>(library, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -96,7 +95,7 @@ public class LibraryController {
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.CREATED, Constants.ADD_RECORD);
 
 		library = libraryService.save(library);
-		RestResponse<Library> response = new RestResponse<>(library, restStatus, RestCustom.builder().build());
+		RestResponse<Library> response = new RestResponse<>(library, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -115,7 +114,7 @@ public class LibraryController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.DELETE_MSG);
 		libraryService.delete(id);
-		RestResponse<?> response = new RestResponse<>(null, restStatus, RestCustom.builder().build());
+		RestResponse<?> response = new RestResponse<>(null, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
