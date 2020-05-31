@@ -1,8 +1,7 @@
 package com.test.restcontroller;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.test.controller.LibraryController;
@@ -22,7 +22,7 @@ import com.test.model.Library;
 import com.test.request.model.RestResponse;
 import com.test.service.impl.LibraryServiceImpl;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class LibraryControllerTest {
 
 	@Mock

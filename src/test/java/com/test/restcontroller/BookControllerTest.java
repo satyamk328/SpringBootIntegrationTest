@@ -1,7 +1,7 @@
 package com.test.restcontroller;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.test.controller.BookController;
 import com.test.model.Book;
@@ -24,7 +24,7 @@ import com.test.model.Library;
 import com.test.request.model.RestResponse;
 import com.test.service.impl.BookServiceImpl;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 public class BookControllerTest {
 
 	@Mock
