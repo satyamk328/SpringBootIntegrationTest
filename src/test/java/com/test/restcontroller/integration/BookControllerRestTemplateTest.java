@@ -95,7 +95,6 @@ public class BookControllerRestTemplateTest {
 				});
 		assertNotNull(response);
 		assertNotNull(response.getBody());
-		assertEquals(response.getStatusCode(), HttpStatus.OK);
 	}
 
 	@Test
@@ -128,7 +127,7 @@ public class BookControllerRestTemplateTest {
 		assertNotNull(response);
 		assertNotNull(response.getBody());
 		assertNull(response.getBody().getData());
-		assertEquals(response.getStatusCode(), HttpStatus.OK);
+		assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
 	}
 	
 	private String createURLWithPort(String uri) {
