@@ -15,6 +15,8 @@ public interface BookService {
 	public Book findById(Long id);
 
 	public Book save(Book book);
+	
+	public Book save(Book book, Long libraryId);
 
 	public Book update(Book book);
 

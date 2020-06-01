@@ -52,6 +52,14 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	@Transactional
+	public Book save(Book book, Long libraryId) {
+		Library library = libRepo.findById(libraryId);
+		book.setLibrary(library);
+		return bookRepo.save(book);
+	}
+	
+	@Override
+	@Transactional
 	public Book save(Book book) {
 		return bookRepo.save(book);
 	}

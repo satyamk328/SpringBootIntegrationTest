@@ -57,28 +57,94 @@ public class BookControllerTest {
 	}
 
 	@Test
-	public void When_FindId_ThenReturnSuccess() {
+	public void When_FindById_ThenReturnSuccess() {
 		Mockito.when(bookServiceImpl.findById(ArgumentMatchers.anyLong())).thenReturn(getBookResponse());
-		ResponseEntity<RestResponse<?>> responseEntity = bookController.findById(1L);
+		ResponseEntity<RestResponse<Book>> responseEntity = bookController.findById(1L);
 		Mockito.verify(bookServiceImpl, Mockito.timeout(1)).findById(ArgumentMatchers.anyLong());
 		assertNotNull(responseEntity);
 		assertNotNull(responseEntity.getBody());
 		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
 		assertNotNull(responseEntity.getBody().getData());
+		assertEquals(responseEntity.getBody().getData().getAuthorName(), getBookResponse().getAuthorName());
+		assertEquals(responseEntity.getBody().getData().getDesc(), getBookResponse().getDesc());
+		assertEquals(responseEntity.getBody().getData().getId(), getBookResponse().getId());
+		assertEquals(responseEntity.getBody().getData().getName(), getBookResponse().getName());
+		assertEquals(responseEntity.getBody().getData().getStatus(), getBookResponse().getStatus());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getAddress(), getBookResponse().getLibrary().getAddress());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getDesc(), getBookResponse().getLibrary().getDesc());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getGroupName(), getBookResponse().getLibrary().getGroupName());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getId(), getBookResponse().getLibrary().getId());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getName(), getBookResponse().getLibrary().getName());
 	}
 
 	@Test
 	public void When_SearchBooks_ThenReturnSuccess() {
 		Mockito.when(bookServiceImpl.findAll(ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt(),
 				ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(getPageBookResponse());
-		ResponseEntity<RestResponse<?>> responseEntity = bookController.searchBook(1, 10, "", "");
+		ResponseEntity<RestResponse<Page<Book>>> responseEntity = bookController.searchBook(1, 10, "", "");
 		Mockito.verify(bookServiceImpl, Mockito.timeout(1)).findAll(ArgumentMatchers.anyInt(),
 				ArgumentMatchers.anyInt(), ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
 		assertNotNull(responseEntity);
 		assertNotNull(responseEntity.getBody());
 		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
 		assertNotNull(responseEntity.getBody().getData());
+		assertNotNull(responseEntity.getBody().getData());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getAuthorName(), getBooksResponse().get(0).getAuthorName());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getDesc(), getBooksResponse().get(0).getDesc());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getId(), getBooksResponse().get(0).getId());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getName(), getBooksResponse().get(0).getName());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getPrice(), getBooksResponse().get(0).getPrice());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getStatus(), getBooksResponse().get(0).getStatus());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getLibrary().getAddress(), getBooksResponse().get(0).getLibrary().getAddress());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getLibrary().getDesc(), getBooksResponse().get(0).getLibrary().getDesc());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getLibrary().getGroupName(), getBooksResponse().get(0).getLibrary().getGroupName());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getLibrary().getId(), getBooksResponse().get(0).getLibrary().getId());
+		assertEquals(responseEntity.getBody().getData().getContent().get(0).getLibrary().getName(), getBooksResponse().get(0).getLibrary().getName());
 	}
+	
+	@Test
+	public void When_AddBooks_ThenReturnSuccess() {
+		Mockito.when(bookServiceImpl.save(ArgumentMatchers.any(Book.class))).thenReturn(getBookResponse());
+		ResponseEntity<RestResponse<Book>> responseEntity = bookController.addBook(getBookResponse());
+		Mockito.verify(bookServiceImpl, Mockito.timeout(1)).save(ArgumentMatchers.any(Book.class));
+		assertNotNull(responseEntity);
+		assertNotNull(responseEntity.getBody());
+		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+		assertNotNull(responseEntity.getBody().getData());
+		assertEquals(responseEntity.getBody().getData().getAuthorName(), getBookResponse().getAuthorName());
+		assertEquals(responseEntity.getBody().getData().getDesc(), getBookResponse().getDesc());
+		assertEquals(responseEntity.getBody().getData().getId(), getBookResponse().getId());
+		assertEquals(responseEntity.getBody().getData().getName(), getBookResponse().getName());
+		assertEquals(responseEntity.getBody().getData().getStatus(), getBookResponse().getStatus());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getAddress(), getBookResponse().getLibrary().getAddress());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getDesc(), getBookResponse().getLibrary().getDesc());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getGroupName(), getBookResponse().getLibrary().getGroupName());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getId(), getBookResponse().getLibrary().getId());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getName(), getBookResponse().getLibrary().getName());
+	}
+	
+	@Test
+	public void When_AddBooksByLibrary_ThenReturnSuccess() {
+		Mockito.when(bookServiceImpl.save(ArgumentMatchers.any(Book.class), ArgumentMatchers.anyLong())).thenReturn(getBookResponse());
+		ResponseEntity<RestResponse<Book>> responseEntity = bookController.addBook(1L, getBookResponse());
+		Mockito.verify(bookServiceImpl, Mockito.timeout(1)).save(ArgumentMatchers.any(Book.class), ArgumentMatchers.anyLong());
+		assertNotNull(responseEntity);
+		assertNotNull(responseEntity.getBody());
+		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+		assertNotNull(responseEntity.getBody().getData());
+		assertEquals(responseEntity.getBody().getData().getAuthorName(), getBookResponse().getAuthorName());
+		assertEquals(responseEntity.getBody().getData().getDesc(), getBookResponse().getDesc());
+		assertEquals(responseEntity.getBody().getData().getId(), getBookResponse().getId());
+		assertEquals(responseEntity.getBody().getData().getName(), getBookResponse().getName());
+		assertEquals(responseEntity.getBody().getData().getStatus(), getBookResponse().getStatus());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getAddress(), getBookResponse().getLibrary().getAddress());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getDesc(), getBookResponse().getLibrary().getDesc());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getGroupName(), getBookResponse().getLibrary().getGroupName());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getId(), getBookResponse().getLibrary().getId());
+		assertEquals(responseEntity.getBody().getData().getLibrary().getName(), getBookResponse().getLibrary().getName());
+	}
+	
+	
 
 	private Page<Book> getPageBookResponse() {
 		Page<Book> page = new PageImpl<Book>(getBooksResponse());

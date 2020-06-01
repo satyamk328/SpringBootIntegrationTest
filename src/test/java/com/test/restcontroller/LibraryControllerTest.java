@@ -58,7 +58,6 @@ public class LibraryControllerTest {
 		assertNotNull(responseEntity);
 		assertNotNull(responseEntity.getBody());
 		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
-		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
 		assertNotNull(responseEntity.getBody().getData());
 		assertEquals(responseEntity.getBody().getData().getId(), getLibraryResponse().getId());
 		assertEquals(responseEntity.getBody().getData().getName(), getLibraryResponse().getName());

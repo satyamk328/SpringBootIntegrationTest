@@ -55,7 +55,7 @@ public class BookController {
 			@ApiResponse(code = 500, message = "Generic server error"),
 			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
 	@GetMapping("/search")
-	public ResponseEntity<RestResponse<?>> searchBook(
+	public ResponseEntity<RestResponse<Page<Book>>> searchBook(
 			@RequestParam(name = "pageNo", required = false, defaultValue = "0") Integer pageNo,
 			@RequestParam(name = "pageSize", required = false, defaultValue = "" + Integer.MAX_VALUE) Integer pageSize,
 			@RequestParam(name = "sortBy", required = false, defaultValue = "createdDate") String sortBy,
@@ -63,7 +63,7 @@ public class BookController {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		Page<Book> page = bookService.findAll(pageNo, pageSize, sortBy, searchText);
-		RestResponse<?> response = new RestResponse<>(page, restStatus);
+		RestResponse<Page<Book>> response = new RestResponse<>(page, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
@@ -97,11 +97,11 @@ public class BookController {
 			@ApiResponse(code = 500, message = "Generic server error"),
 			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
 	@GetMapping("/{id}")
-	public ResponseEntity<RestResponse<?>> findById(@PathVariable(name = "id", required = true) Long id) {
+	public ResponseEntity<RestResponse<Book>> findById(@PathVariable(name = "id", required = true) Long id) {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		Book book = bookService.findById(id);
-		RestResponse<?> response = new RestResponse<>(book, restStatus);
+		RestResponse<Book> response = new RestResponse<>(book, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -116,11 +116,31 @@ public class BookController {
 			@ApiResponse(code = 500, message = "Generic server error"),
 			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
 	@PostMapping("/")
-	public ResponseEntity<RestResponse<?>> addBook(@RequestBody(required = true) @Valid Book book) {
+	public ResponseEntity<RestResponse<Book>> addBook(@RequestBody(required = true) @Valid Book book) {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.CREATED, Constants.ADD_RECORD);
 		book = bookService.save(book);
-		RestResponse<?> response = new RestResponse<>(book, restStatus);
+		RestResponse<Book> response = new RestResponse<>(book, restStatus);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "Add Book By Library Id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Your request was successful"),
+			@ApiResponse(code = 400, message = "Your request is not accepted"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 408, message = "Your request has timed out"),
+			@ApiResponse(code = 409, message = "There was a resource conflict"),
+			@ApiResponse(code = 500, message = "Generic server error"),
+			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
+	@PostMapping("/library/{libraryId}")
+	public ResponseEntity<RestResponse<Book>> addBook(@PathVariable(name = "libraryId", required = true) Long libraryId,
+			@RequestBody(required = true) @Valid Book book) {
+
+		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.CREATED, Constants.ADD_RECORD);
+		book = bookService.save(book, libraryId);
+		RestResponse<Book> response = new RestResponse<>(book, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -135,13 +155,13 @@ public class BookController {
 			@ApiResponse(code = 500, message = "Generic server error"),
 			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
 	@PutMapping("/{id}")
-	public ResponseEntity<RestResponse<?>> update(@PathVariable(name = "id", required = true) Long id,
+	public ResponseEntity<RestResponse<Book>> update(@PathVariable(name = "id", required = true) Long id,
 			@RequestBody(required = true) @Valid Book book) {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.UPDATE_RECORD);
 		book.setId(id);
 		book = bookService.update(book);
-		RestResponse<?> response = new RestResponse<>(book, restStatus);
+		RestResponse<Book> response = new RestResponse<>(book, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
