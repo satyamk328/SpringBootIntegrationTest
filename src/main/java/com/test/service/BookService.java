@@ -11,6 +11,8 @@ public interface BookService {
 	public Page<Book> findAll(Integer pageNo, Integer pageSize, String sortBy, String searchText) ;
 	
 	public List<Book> findAll();
+	
+	public List<Book> findByLiberyId(Long libId);
 
 	public Book findById(Long id);
 

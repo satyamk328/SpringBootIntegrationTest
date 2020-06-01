@@ -63,7 +63,7 @@ public class BookControllerRestTemplateTest {
 	public void findBookById_thenReturnSuccess() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-		ResponseEntity<RestResponse<Book>> responseEntity = restTemplate.exchange(createURLWithPort("/v0/book/12"), HttpMethod.GET, entity,
+		ResponseEntity<RestResponse<Book>> responseEntity = restTemplate.exchange(createURLWithPort("/v0/book/1"), HttpMethod.GET, entity,
 				new ParameterizedTypeReference<RestResponse<Book>>() {
 		});
 		assertNotNull(responseEntity);
@@ -72,13 +72,11 @@ public class BookControllerRestTemplateTest {
 		assertNotNull(responseEntity.getBody().getData());
 		assertEquals(responseEntity.getBody().getData().getAuthorName(), getBookResponse().getAuthorName());
 		assertEquals(responseEntity.getBody().getData().getDesc(), getBookResponse().getDesc());
-		assertEquals(responseEntity.getBody().getData().getId(), getBookResponse().getId());
 		assertEquals(responseEntity.getBody().getData().getName(), getBookResponse().getName());
 		assertEquals(responseEntity.getBody().getData().getStatus(), getBookResponse().getStatus());
 		assertEquals(responseEntity.getBody().getData().getLibrary().getAddress(), getBookResponse().getLibrary().getAddress());
 		assertEquals(responseEntity.getBody().getData().getLibrary().getDesc(), getBookResponse().getLibrary().getDesc());
 		assertEquals(responseEntity.getBody().getData().getLibrary().getGroupName(), getBookResponse().getLibrary().getGroupName());
-		assertEquals(responseEntity.getBody().getData().getLibrary().getId(), getBookResponse().getLibrary().getId());
 		assertEquals(responseEntity.getBody().getData().getLibrary().getName(), getBookResponse().getLibrary().getName());
 	}
 	
@@ -129,7 +127,7 @@ public class BookControllerRestTemplateTest {
 	public void test_DeleteBook_thenReturnSuccess() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		HttpEntity<Book> entity = new HttpEntity<Book>(null, headers);
-		ResponseEntity<RestResponse<Void>> response = restTemplate.exchange(createURLWithPort("/v0/book/12"), HttpMethod.DELETE, entity,
+		ResponseEntity<RestResponse<Void>> response = restTemplate.exchange(createURLWithPort("/v0/book/1"), HttpMethod.DELETE, entity,
 				new ParameterizedTypeReference<RestResponse<Void>>() {
 				});
 		assertNotNull(response);

@@ -85,6 +85,25 @@ public class BookController {
 		RestResponse<List<Book>> response = new RestResponse<>(bookes, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "Get Book By Library Id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Your request was successful"),
+			@ApiResponse(code = 400, message = "Your request is not accepted"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 408, message = "Your request has timed out"),
+			@ApiResponse(code = 409, message = "There was a resource conflict"),
+			@ApiResponse(code = 500, message = "Generic server error"),
+			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
+	@GetMapping("/findBooks/{libraryId}")
+	public ResponseEntity<RestResponse<List<Book>>> findByLibraryId(@PathVariable(name = "libraryId", required = true) Long libraryId) {
+
+		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
+		List<Book> books = bookService.findByLiberyId(libraryId);
+		RestResponse<List<Book>> response = new RestResponse<>(books, restStatus);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 	@ApiOperation(value = "Get Book By Id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Your request was successful"),

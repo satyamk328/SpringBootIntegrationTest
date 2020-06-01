@@ -43,6 +43,11 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public List<Book> findByLiberyId(Long libId){
+		return bookRepo.findByLiberyId(libId);
+	}
+	
+	@Override
 	public Book findById(Long id) {
 		Book book = bookRepo.findById(id).orElse(null);
 		if (book == null)

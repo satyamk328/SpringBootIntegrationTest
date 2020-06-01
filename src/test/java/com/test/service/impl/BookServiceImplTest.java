@@ -77,6 +77,16 @@ public class BookServiceImplTest {
 		assertEquals(books.get(0).getId(), getBooksResponse().get(0).getId());
 		assertEquals(books.get(0).getName(), getBooksResponse().get(0).getName());
 	}
+	
+	@Test
+	public void When_FindAllBooksByLibraryId_ThenReturnSuccess() {
+		Mockito.when(bookRepository.findByLiberyId(ArgumentMatchers.anyLong())).thenReturn(getBooksResponse());
+		List<Book> books = bookServiceImpl.findByLiberyId(1L);
+		Mockito.verify(bookRepository, Mockito.timeout(1)).findByLiberyId(ArgumentMatchers.anyLong());
+		assertNotNull(books);
+		assertEquals(books.get(0).getId(), getBooksResponse().get(0).getId());
+		assertEquals(books.get(0).getName(), getBooksResponse().get(0).getName());
+	}
 
 	@Test
 	public void When_FindById_ThenReturnSuccess() {
@@ -99,6 +109,19 @@ public class BookServiceImplTest {
 		Mockito.when(bookRepository.save(ArgumentMatchers.any())).thenReturn(getBookResponse());
 		Book book = bookServiceImpl.save(new Book());
 		Mockito.verify(bookRepository, Mockito.timeout(1)).save(ArgumentMatchers.any());
+		assertNotNull(book);
+		assertEquals(book.getId(), getBookResponse().getId());
+		assertEquals(book.getName(), getBookResponse().getName());
+		assertNotNull(book.getLibrary());
+	}
+	
+	@Test
+	public void When_AddBooksWithLibraryId_ThenReturnSuccess() {
+		Mockito.when(bookRepository.save(ArgumentMatchers.any())).thenReturn(getBookResponse());
+		Mockito.when(libRepo.findById(ArgumentMatchers.anyLong())).thenReturn(new Library());
+		Book book = bookServiceImpl.save(new Book(),1L);
+		Mockito.verify(bookRepository, Mockito.timeout(1)).save(ArgumentMatchers.any());
+		Mockito.verify(libRepo, Mockito.timeout(1)).findById(ArgumentMatchers.anyLong());
 		assertNotNull(book);
 		assertEquals(book.getId(), getBookResponse().getId());
 		assertEquals(book.getName(), getBookResponse().getName());

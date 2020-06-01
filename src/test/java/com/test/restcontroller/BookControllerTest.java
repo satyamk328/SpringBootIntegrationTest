@@ -102,6 +102,29 @@ public class BookControllerTest {
 		assertEquals(responseEntity.getBody().getData().getContent().get(0).getLibrary().getName(), getBooksResponse().get(0).getLibrary().getName());
 	}
 	
+	
+	@Test
+	public void When_FindByLibraryId_ThenReturnSuccess() {
+		Mockito.when(bookServiceImpl.findByLiberyId(ArgumentMatchers.anyLong())).thenReturn(getBooksResponse());
+		ResponseEntity<RestResponse<List<Book>>> responseEntity = bookController.findByLibraryId(1L);
+		Mockito.verify(bookServiceImpl, Mockito.timeout(1)).findByLiberyId(ArgumentMatchers.anyLong());
+		assertNotNull(responseEntity);
+		assertNotNull(responseEntity.getBody());
+		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
+		assertNotNull(responseEntity.getBody().getData());
+		assertEquals(responseEntity.getBody().getData().get(0).getAuthorName(), getBooksResponse().get(0).getAuthorName());
+		assertEquals(responseEntity.getBody().getData().get(0).getDesc(), getBooksResponse().get(0).getDesc());
+		assertEquals(responseEntity.getBody().getData().get(0).getId(), getBooksResponse().get(0).getId());
+		assertEquals(responseEntity.getBody().getData().get(0).getName(), getBooksResponse().get(0).getName());
+		assertEquals(responseEntity.getBody().getData().get(0).getPrice(), getBooksResponse().get(0).getPrice());
+		assertEquals(responseEntity.getBody().getData().get(0).getStatus(), getBooksResponse().get(0).getStatus());
+		assertEquals(responseEntity.getBody().getData().get(0).getLibrary().getAddress(), getBooksResponse().get(0).getLibrary().getAddress());
+		assertEquals(responseEntity.getBody().getData().get(0).getLibrary().getDesc(), getBooksResponse().get(0).getLibrary().getDesc());
+		assertEquals(responseEntity.getBody().getData().get(0).getLibrary().getGroupName(), getBooksResponse().get(0).getLibrary().getGroupName());
+		assertEquals(responseEntity.getBody().getData().get(0).getLibrary().getId(), getBooksResponse().get(0).getLibrary().getId());
+		assertEquals(responseEntity.getBody().getData().get(0).getLibrary().getName(), getBooksResponse().get(0).getLibrary().getName());
+	}
+	
 	@Test
 	public void When_AddBooks_ThenReturnSuccess() {
 		Mockito.when(bookServiceImpl.save(ArgumentMatchers.any(Book.class))).thenReturn(getBookResponse());
