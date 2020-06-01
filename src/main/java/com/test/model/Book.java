@@ -1,6 +1,7 @@
 package com.test.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,22 +23,37 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "book")
-public class Book implements Serializable  {
+public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotNull
-	@Size(max=100)
+	@Size(max = 100)
 	@Column(name = "name", nullable = false)
 	private String name;
+
+	@NotNull
+	@Size(max = 100)
+	@Column(name = "author_name", nullable = false)
+	private String authorName;
+
+	@Column(name = "status", columnDefinition = "boolean default true", nullable = false)
+	private Boolean status;
 	
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "library_id", nullable = false)
-	private Library library; 
+	@Column(name = "price", nullable = false)
+	private BigDecimal price;
+	
+	@NotNull
+	@Column(name = "description", nullable = false)
+	private String desc;
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "library_id", nullable = false)
+	private Library library;
 
 }

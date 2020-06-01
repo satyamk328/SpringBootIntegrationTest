@@ -38,6 +38,27 @@ public class Library implements Serializable {
 	@Size(max = 100)
 	@Column(name = "name", nullable = false)
 	private String name;
+	
+	@NotNull
+	@Size(max = 100)
+	@Column(name = "group_name", nullable = false)
+	private String groupName;
+	
+	@NotNull
+	@Column(name = "ranking", nullable = false)
+	private Long ranking;
+	
+	@NotNull
+	@Column(name = "address", nullable = false)
+	private String address;
+	
+	@NotNull
+	@Column(name = "description", nullable = false)
+	private String desc;
+	
+	@NotNull
+	@Column(name = "status", columnDefinition = "boolean default true", nullable = false)
+	private Boolean status;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "library")
