@@ -40,6 +40,10 @@ public class Library implements Serializable {
 	private String name;
 	
 	@NotNull
+	@Column(name = "description", nullable = false)
+	private String desc;
+	
+	@NotNull
 	@Size(max = 100)
 	@Column(name = "group_name", nullable = false)
 	private String groupName;
@@ -51,10 +55,6 @@ public class Library implements Serializable {
 	@NotNull
 	@Column(name = "address", nullable = false)
 	private String address;
-	
-	@NotNull
-	@Column(name = "description", nullable = false)
-	private String desc;
 	
 	@NotNull
 	@Column(name = "status", columnDefinition = "boolean default true", nullable = false)

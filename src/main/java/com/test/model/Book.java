@@ -36,6 +36,10 @@ public class Book implements Serializable {
 	@Size(max = 100)
 	@Column(name = "name", nullable = false)
 	private String name;
+	
+	@NotNull
+	@Column(name = "description", nullable = false)
+	private String desc;
 
 	@NotNull
 	@Size(max = 100)
@@ -47,10 +51,6 @@ public class Book implements Serializable {
 	
 	@Column(name = "price", nullable = false)
 	private BigDecimal price;
-	
-	@NotNull
-	@Column(name = "description", nullable = false)
-	private String desc;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "library_id", nullable = false)

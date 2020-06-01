@@ -78,11 +78,11 @@ public class BookController {
 			@ApiResponse(code = 500, message = "Generic server error"),
 			@ApiResponse(code = 503, message = "Server Unavailable timeout") })
 	@GetMapping("/")
-	public ResponseEntity<RestResponse<?>> findAll() {
+	public ResponseEntity<RestResponse<List<Book>>> findAll() {
 
 		RestStatus<?> restStatus = new RestStatus<String>(HttpStatus.OK, Constants.FETCH_RECORDS);
 		List<Book> bookes = bookService.findAll();
-		RestResponse<?> response = new RestResponse<>(bookes, restStatus);
+		RestResponse<List<Book>> response = new RestResponse<>(bookes, restStatus);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
